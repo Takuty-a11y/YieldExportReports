@@ -41,7 +41,7 @@ namespace YieldExportReports.Dock
                 | BindingFlags.Instance
                 | BindingFlags.FlattenHierarchy
                 );
-            if (props.Length == 0) return style;
+            
             foreach (var prop in props)
             {
                 if (prop.GetCustomAttributes(typeof(Style), true).FirstOrDefault() is ContentPropertyAttribute attr)

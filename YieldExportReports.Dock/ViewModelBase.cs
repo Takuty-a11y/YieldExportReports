@@ -62,19 +62,11 @@ namespace YieldExportReports.Dock
 
         protected ToolContent GetDocumentByContentId(string contentId)
         {
-            var doc = Documents.FirstOrDefault(d => d.ContentId == contentId);
-            if (doc == null)
-            { return new ToolContent(string.Empty); }
-            else
-            { return doc; }
+            return Documents.FirstOrDefault(d => d.ContentId == contentId) ?? new ToolContent(string.Empty);
         }
         protected ToolContent GetContentByContentId(string contentId)
         {
-            var doc = Tools.FirstOrDefault(d => d.ContentId == contentId);
-            if (doc == null)
-            { return new ToolContent(string.Empty); }
-            else
-            { return doc; }
+            return Tools.FirstOrDefault(d => d.ContentId == contentId) ?? new ToolContent(string.Empty);
         }
 
         RelayCommand m_newDocumentCommand = new(null);
@@ -114,8 +106,8 @@ namespace YieldExportReports.Dock
 
         public void DefaultLayout(DockingManager dockManager)
         {
-            if (m_defaultLayout == null) return;
-            LoadLayoutFromBytes(dockManager, m_defaultLayout);
+            if (m_defaultLayout != null)
+            { LoadLayoutFromBytes(dockManager, m_defaultLayout); }
         }
 
         public void LoadLayout(DockingManager dockManager)

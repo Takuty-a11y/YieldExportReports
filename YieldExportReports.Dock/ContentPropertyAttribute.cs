@@ -9,7 +9,6 @@ namespace YieldExportReports.Dock
         public BindingMode BindingMode { get; set; }
 
         public ContentPropertyAttribute()
-        {
-        }
+        { }
     }
 }
