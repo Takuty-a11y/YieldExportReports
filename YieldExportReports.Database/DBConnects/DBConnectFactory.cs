@@ -27,7 +27,7 @@ namespace YieldExportReports.Database.DBConnects
             {
                 DBType.MicrosoftSQLServer => new DBOperates.MSSQLServer.SQLOperator(),
                 DBType.MicrosoftOleDb => new DBOperates.MSOLEDB.SQLOperator(),
-                DBType.PostgreSQL => new DBOperates.Postgresql.SQLOperator(),
+                DBType.PostgreSQL => new DBOperates.PostgreSQL.SQLOperator(),
                 DBType.MySQL => new DBOperates.MySQL.SQLOperator(),
                 _ => new DBOperates.MSSQLServer.SQLOperator(),
             };

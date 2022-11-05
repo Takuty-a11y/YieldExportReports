@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace YieldExportReports
+namespace YieldExportReports.Views.Main
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// LoadingDialog.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class LoadingDialog : Window
     {
-        public MainWindow()
+        public LoadingDialog()
         {
             InitializeComponent();
+        }
+        public string Header
+        {
+            get { return lblHeader.Content.ToString() ?? string.Empty; }
+            set { lblHeader.Content = value; }
         }
     }
 }

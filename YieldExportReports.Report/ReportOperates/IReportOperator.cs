@@ -5,6 +5,6 @@ namespace YieldExportReports.Report.ReportOperates
 {
     public interface IReportOperator
     {
-        List<string> RunExport(DataTable dtSource);
+        List<string> RunExport(DataTable? dtSource);
     }
 }

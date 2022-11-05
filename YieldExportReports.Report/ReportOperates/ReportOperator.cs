@@ -84,7 +84,7 @@ namespace YieldExportReports.Report.ReportOperates
         /// </summary>
         /// <param name="dataSource">出力元データ</param>
         /// <returns>出力済パスリスト</returns>
-        public List<string> RunExport(DataTable dataSource)
+        public List<string> RunExport(DataTable? dataSource)
         {
             var targetData = dataSource ?? new DataTable();
             var fileNameList = new Dictionary<string, List<string>>();

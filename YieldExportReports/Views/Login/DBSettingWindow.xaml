@@ -1,0 +1,103 @@
+﻿<Window x:Class="YieldExportReports.Views.Login.DBSettingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:common="clr-namespace:YieldExportReports.Views.Common"
+        xmlns:local="clr-namespace:YieldExportReports.Views.Login"
+        xmlns:vm="clr-namespace:YieldExportReports.ViewModels.Login"
+        mc:Ignorable="d"
+        Title="設定編集"
+        Height="480"
+        Width="500"
+        Name="settingWindow"
+        d:DataContext="{d:DesignInstance Type=vm:DBSettingWindowViewModel,IsDesignTimeCreatable=True}"
+        WindowStartupLocation="CenterOwner">
+    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:DBSettingMSSQLViewModel}">
+            <local:DBSettingMSSQLControl DataContext="{Binding Path=DataContext.ContentViewModel,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DBSettingMSOLEViewModel}">
+            <local:DBSettingMSOLEControl DataContext="{Binding Path=DataContext.ContentViewModel,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DBSettingPostgreSQLViewModel}">
+            <local:DBSettingPostgreSQLControl DataContext="{Binding Path=DataContext.ContentViewModel,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DBSettingMySQLViewModel}">
+            <local:DBSettingMySQLControl DataContext="{Binding Path=DataContext.ContentViewModel,RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"/>
+        </DataTemplate>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}"/>
+        <Border Grid.Row="1">
+            <DockPanel>
+                <Border DockPanel.Dock="Top" Background="WhiteSmoke">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                        <Label Margin="10,3" Content="データベース" />
+                        <common:CommonComboBox 
+                            ComboWidth="200"
+                            ComboItemSource="{Binding ComboItemSource, Mode=OneTime}"
+                            SelectedItem="{Binding SelectedDBType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            SelectedItemName="{Binding SelectedDBTypeName, Mode=OneWay}"
+                            IsComboEnabled="{Binding IsComboEnabled, UpdateSourceTrigger=PropertyChanged}"
+                            ComboChangeCommand="{Binding ComboChangeCommand}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- 設定ファイル -->
+                <Border DockPanel.Dock="Bottom" Margin="10" BorderThickness="0,1,0,0" BorderBrush="LightGray">
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Label Content="設定ファイル" Margin="0,0,10,0" />
+                        <common:CommonPathControl
+                            PathText="{Binding FilePathText}"
+                            TextWidth="310"
+                            OpenFileCommand="{Binding OpenFileCommand}"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- UserControl -->
+                <StackPanel Margin="15,0,0,0">
+                    <ContentControl Content="{Binding ContentViewModel, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+        <Border Grid.Row="2" Background="WhiteSmoke">
+            <!-- OKキャンセル -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button 
+                    Style="{StaticResource OKCnacelButton}"
+                    mah:ControlsHelper.ContentCharacterCasing="Normal"
+                    x:Name="btnOK"
+                    Content="OK">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=OKCommand}" />
+                        </i:EventTrigger>
+                        <i:DataTrigger Binding="{Binding Path=ViewModelResult, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <i:ChangePropertyAction TargetObject="{Binding ElementName=settingWindow}" PropertyName="DialogResult" Value="True" />
+                        </i:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+                <Button Style="{StaticResource OKCnacelButton}" x:Name="btnCancel" Content="キャンセル">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=CancelCommand}" />
+                        </i:EventTrigger>
+                        <i:DataTrigger Binding="{Binding Path=ViewModelResult, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                            <i:ChangePropertyAction TargetObject="{Binding ElementName=settingWindow}" PropertyName="DialogResult" Value="False" />
+                        </i:DataTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

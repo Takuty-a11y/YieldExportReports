@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="YieldExportReports.Views.Common.CommonPathControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:YieldExportReports.Views.Common"
+             mc:Ignorable="d">
+    <StackPanel Orientation="Horizontal">
+        <TextBox
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Width="{Binding TextWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CommonPathControl}}}"
+            IsReadOnly="True"
+            Text="{Binding PathText, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CommonPathControl}}}"
+            Margin="0,0,5,0" />
+        <Button Style="{StaticResource SettingButton}" Width="30" ToolTip="出力先選択">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="FolderOpen" Foreground="{DynamicResource MahApps.Brushes.Accent}" />
+            </StackPanel>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding OpenFileCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CommonPathControl}}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+        <Button Style="{StaticResource SettingButton}" Width="30" ToolTip="パスを削除">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Kind="Backspace" Foreground="{DynamicResource MahApps.Brushes.Accent}" />
+            </StackPanel>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Click">
+                    <i:InvokeCommandAction Command="{Binding DeleteFileCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:CommonPathControl}}}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Button>
+    </StackPanel>
+</UserControl>

@@ -10,7 +10,7 @@
 
     public class DBTypes
     {
-        public static string GetName(DBType enmType)
+        public static string GetName(DBType? enmType)
         {
             return enmType switch
             {

@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="YieldExportReports.Views.Report.ReportGeneralControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="clr-namespace:YieldExportReports.Views.Common"
+             xmlns:vm="clr-namespace:YieldExportReports.ViewModels.Report"
+             d:DataContext="{d:DesignInstance Type=vm:ReportGeneralViewModel,IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" >
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="10,10">
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,20">
+                <Label Content="レポート出力場所" Margin="0,0,10,0" />
+                <common:CommonPathControl
+                    PathText="{Binding FolderPathText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWidth="400"
+                    OpenFileCommand="{Binding SelectFolderCommand}" />
+            </StackPanel>
+            <GroupBox Style="{StaticResource SettingGroup}" Header="ファイル設定" Margin="0,0,0,10">
+                <Grid Margin="0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="ファイル名" />
+                    <TextBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Width="310"
+                        MaxLength="50"
+                        Text="{Binding FileNameText}"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="出力形式" />
+                    <common:CommonComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ComboItemSource="{Binding FormatItemSource}"
+                        SelectedItem="{Binding SelectedFormatKey, Mode=TwoWay}"
+                        SelectedItemName="{Binding SelectedFormatValue, Mode=OneWay}" />
+                    <Label Grid.Row="2" Grid.Column="0" Content="分割指定" />
+                    <common:CommonComboBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        ComboItemSource="{Binding SplitItemSource}"
+                        SelectedItem="{Binding SelectedSplitKey, Mode=TwoWay}"
+                        SelectedItemName="{Binding SelectedSplitValue, Mode=OneWay}" />
+                </Grid>
+            </GroupBox>
+            <GroupBox  Style="{StaticResource SettingGroup}" Header="出力設定" Margin="0,0,0,20">
+                <Grid Margin="0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="32" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="出力後処理" />
+                    <common:CommonComboBox
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        ComboItemSource="{Binding PostProcessItemSource}"
+                        SelectedItem="{Binding SelectedPostProcessKey, Mode=TwoWay}"
+                        SelectedItemName="{Binding SelectedPostProcessValue, Mode=OneWay}" />
+                    <Label Grid.Row="1" Grid.Column="0" Content="上書き設定" />
+                    <common:CommonComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        ComboItemSource="{Binding OverWriteItemSource}"
+                        SelectedItem="{Binding SelecteOverWriteKey, Mode=TwoWay}"
+                        SelectedItemName="{Binding SelecteOverWriteValue, Mode=OneWay}" />
+                    <CheckBox 
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        Margin="3,0,0,0"
+                        IsChecked="{Binding Path=IsOutputNonData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="データが存在しない場合は出力しない" />
+                    <CheckBox 
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Margin="3,0,0,0"
+                        IsChecked="{Binding Path=IsGetQuerynData, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Content="出力前にクエリからデータを取得する" />
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

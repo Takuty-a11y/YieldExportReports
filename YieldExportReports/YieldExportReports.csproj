@@ -19,4 +19,10 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\YieldExportReports.Database\YieldExportReports.Database.csproj" />
+    <ProjectReference Include="..\YieldExportReports.Dock\YieldExportReports.Dock.csproj" />
+    <ProjectReference Include="..\YieldExportReports.Report\YieldExportReports.Report.csproj" />
+  </ItemGroup>
+
 </Project>

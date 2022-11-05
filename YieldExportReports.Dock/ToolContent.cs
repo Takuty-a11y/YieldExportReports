@@ -80,7 +80,7 @@ namespace YieldExportReports.Dock
         }
         public bool IsDocument { get; set; }
 
-        public ToolContent(string contentId, string title = "")
+        public ToolContent(string contentId, string? title = "")
         {
             m_contentId = contentId;
             Title = string.IsNullOrWhiteSpace(title) ? contentId : title;

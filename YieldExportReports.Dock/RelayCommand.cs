@@ -21,8 +21,7 @@ namespace YieldExportReports.Dock
 
         public void Execute(object? parameter)
         {
-            if (m_callback != null)
-            { m_callback(); }
+            m_callback?.Invoke();
         }
     }
 }

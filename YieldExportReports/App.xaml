@@ -1,9 +1,58 @@
 ﻿<Application x:Class="YieldExportReports.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:YieldExportReports"
-             StartupUri="MainWindow.xaml">
+             xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             StartupUri="Views/Main/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary>
+                    <Style TargetType="{x:Type MenuItem}">
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Padding" Value="5,2,5,2" />
+                    </Style>
+                    <Style x:Key="MainMenuTitle" TargetType="{x:Type MenuItem}">
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Padding" Value="10,4" />
+                        <Setter Property="Foreground" Value="White" />
+                    </Style>
+                    <Style x:Key="MenuContents" TargetType="{x:Type MenuItem}">
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Padding" Value="5,4,5,4" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Style>
+                    <Style x:Key="MenuSeparator" TargetType="{x:Type Separator}">
+                        <Setter Property="Margin" Value="0,2,5,2" />
+                    </Style>
+                    <Style x:Key="LoginButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square.Accent}" >
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="Width" Value="80" />
+                        <Setter Property="Margin" Value="0,0,18,0" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                    <Style x:Key="OKCnacelButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}" >
+                        <Setter Property="Height" Value="26" />
+                        <Setter Property="Width" Value="80" />
+                        <Setter Property="Margin" Value="0,0,18,0" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                    <Style x:Key="SettingButton" TargetType="Button" BasedOn="{StaticResource MahApps.Styles.Button.Square}" >
+                        <Setter Property="Height" Value="28" />
+                        <Setter Property="Width" Value="44" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="BorderThickness" Value="0.2" />
+                    </Style>
+                    <Style x:Key="SettingGroup" TargetType="GroupBox" BasedOn="{StaticResource MahApps.Styles.GroupBox}">
+                        <Setter Property="BorderBrush" Value="LightGray"/>
+                        <Setter Property="mah:HeaderedControlHelper.HeaderBackground" Value="WhiteSmoke" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

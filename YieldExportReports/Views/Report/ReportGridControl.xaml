@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="YieldExportReports.Views.Report.ReportGridControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:util="clr-namespace:YieldExportReports.Utils"
+             xmlns:local="clr-namespace:YieldExportReports.Views.Report"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <util:CountConverter x:Key="CountConverter" />
+    </UserControl.Resources>
+    
+    <DataGrid
+        x:Name="ReportDataGrid"
+        ItemsSource="{Binding ItemSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReportGridControl}}}"
+        AlternationCount="{Binding ItemSource.Count, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReportGridControl}}}"
+        CanUserAddRows="False"
+        CanUserDeleteRows="False"
+        GridLinesVisibility="All"
+        AutoGenerateColumns="False"
+        SelectedItem="{Binding SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReportGridControl}}}"
+        ColumnWidth="*"
+        VerticalScrollBarVisibility="Visible"
+        MinHeight="200"
+        MaxHeight="200"
+        BorderBrush="LightGray"
+        BorderThickness="1">
+        <DataGrid.Resources>
+            <local:BindingProxy x:Key="proxy" Data="{Binding CellVisible, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReportGridControl}}}" />
+        </DataGrid.Resources>
+        <DataGrid.Columns>
+            <DataGridTextColumn Width="40" IsReadOnly="True" Binding="{Binding AlternationIndex, Converter={StaticResource CountConverter}, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+            <DataGridTextColumn Header="フィールド" Binding="{Binding Field.Name}" IsReadOnly="True" Width="*" />
+            <DataGridTextColumn Header="セル" Binding="{Binding Cell}" Width="*" Visibility="{Binding Data, Source={StaticResource proxy}}" />
+            <DataGridTemplateColumn Width="40">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button
+                            Style="{StaticResource MahApps.Styles.Button.Square}"
+                            BorderThickness="0"
+                            Background="{x:Null}"
+                            Padding="4,2"
+                            Command="{Binding DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReportGridControl}}}"
+                            ToolTip="行削除">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="Delete" Foreground="DarkSlateBlue" Width="14" />
+                            </StackPanel>
+                        </Button>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+        </DataGrid.Columns>
+    </DataGrid>
+</UserControl>

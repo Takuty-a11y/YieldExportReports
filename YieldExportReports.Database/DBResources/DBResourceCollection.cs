@@ -15,9 +15,10 @@ namespace YieldExportReports.Database.DBResources
             get { return resources[index]; }
             set { resources[index] = value; }
         }
-        public void Add(DBResource item)
+        public void Add(DBResource? item)
         {
-            resources.Add(item);
+            if (item != null)
+            { resources.Add(item); }
         }
         public void Delete(DBResource item)
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YieldExportReports.Database.DBOperates.Postgresql
+namespace YieldExportReports.Database.DBOperates.PostgreSQL
 {
     public static class PostgreSQLQuery
     {
