@@ -4,6 +4,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YieldExportReports", "YieldExportReports\YieldExportReports.csproj", "{8ED1F8C6-796A-4ABE-8851-A917849134F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850} = {1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}
+		{43378FC6-785A-462F-A89D-E811F413DD24} = {43378FC6-785A-462F-A89D-E811F413DD24}
+		{D9DA44AD-DC8F-4E42-9C9E-4652430ED958} = {D9DA44AD-DC8F-4E42-9C9E-4652430ED958}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YieldExportReports.Database", "YieldExportReports.Database\YieldExportReports.Database.csproj", "{D9DA44AD-DC8F-4E42-9C9E-4652430ED958}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YieldExportReports.Dock", "YieldExportReports.Dock\YieldExportReports.Dock.csproj", "{43378FC6-785A-462F-A89D-E811F413DD24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YieldExportReports.Report", "YieldExportReports.Report\YieldExportReports.Report.csproj", "{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +26,18 @@ Global
 		{8ED1F8C6-796A-4ABE-8851-A917849134F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ED1F8C6-796A-4ABE-8851-A917849134F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ED1F8C6-796A-4ABE-8851-A917849134F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9DA44AD-DC8F-4E42-9C9E-4652430ED958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9DA44AD-DC8F-4E42-9C9E-4652430ED958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9DA44AD-DC8F-4E42-9C9E-4652430ED958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9DA44AD-DC8F-4E42-9C9E-4652430ED958}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43378FC6-785A-462F-A89D-E811F413DD24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43378FC6-785A-462F-A89D-E811F413DD24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43378FC6-785A-462F-A89D-E811F413DD24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43378FC6-785A-462F-A89D-E811F413DD24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B46EB71-DCCC-4FAF-9E9F-BCA61D625850}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
