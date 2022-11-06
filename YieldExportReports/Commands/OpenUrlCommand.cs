@@ -1,18 +1,11 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Windows.Input;
+using YieldExportReports.Utils;
 
 namespace YieldExportReports.Commands
 {
     public class OpenUrlCommand : ICommand
     {
-        private object _vm;
-        public OpenUrlCommand(object vm)
-        {
-            _vm = vm;
-        }
-
         public event EventHandler? CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -29,25 +22,7 @@ namespace YieldExportReports.Commands
 
         public void Execute(object? parameter)
         {
-            OpenUrlLink(parameter as string);
-        }
-
-        private async void OpenUrlLink(string? link)
-        {
-            try
-            {
-                Process.Start(
-                    new ProcessStartInfo
-                    {
-                        FileName = link ?? throw new ArgumentNullException(nameof(link)),
-                        UseShellExecute = true,
-                    }
-                );
-            }
-            catch (Exception e)
-            {
-                await DialogCoordinator.Instance.ShowMessageAsync(_vm, "Error", e.Message);
-            }
+            AppHelper.OpenLinkProcess(parameter as string);
         }
     }
 }

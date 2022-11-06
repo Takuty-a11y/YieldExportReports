@@ -78,6 +78,7 @@
         <!--メニュー-->
         <StackPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}">
             <Menu VerticalAlignment="Top" Background="{x:Null}" >
+                <!--ファイル-->
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuFile" Header="ファイル(_F)">
                     <MenuItem Style="{StaticResource MenuContents}" x:Name="menuNew" Header="新規作成(_N)">
                         <i:Interaction.Triggers>
@@ -137,6 +138,7 @@
                         </i:Interaction.Triggers>
                     </MenuItem>
                 </MenuItem>
+                <!--編集-->
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuEdit" Header="編集(_E)">
                     <MenuItem Style="{StaticResource MenuContents}" Command="Undo">
                         <MenuItem.Icon>
@@ -165,6 +167,7 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <!--表示-->
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuDisplay" Header="表示(_V)" ItemsSource="{Binding Tools}" >
                     <MenuItem.ItemContainerStyle>
                         <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MenuContents}">
@@ -174,6 +177,7 @@
                         </Style>
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
+                <!--ツール-->
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuTool" Header="ツール(_T)">
                     <MenuItem Style="{StaticResource MenuContents}" Name="menuQuery" Header="クエリ実行(_Q)">
                         <MenuItem.Icon>
@@ -249,19 +253,8 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
-                    <!--
-                        <MenuItem Style="{StaticResource MenuContents}" x:Name="menuQuery" Header="クエリを実行" IsEnabled="{Binding QueryMenuEnabled, UpdateSourceTrigger=PropertyChanged}">
-                            <MenuItem.Icon>
-                                <iconPacks:PackIconModern Kind="ControlPlay" Foreground="{Binding QueryMenuColor}" />
-                            </MenuItem.Icon>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding ExecQueryFromMenuCommand}" />
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </MenuItem>
-                    -->
                 </MenuItem>
+                <!--ヘルプ-->
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuHelp" Header="ヘルプ(_H)">
                     <MenuItem Style="{StaticResource MenuContents}" Header="製品情報(_I)">
                         <i:Interaction.Triggers>
@@ -281,11 +274,22 @@
                         </i:Interaction.Triggers>
                     </MenuItem>
                     <Separator Style="{StaticResource MenuSeparator}" />
-                    <MenuItem Style="{StaticResource MenuContents}" Header="サードパーティーソフトウェア(_S)" />
+                    <MenuItem Style="{StaticResource MenuContents}" x:Name="menuThirdParty" Header="サードパーティーソフトウェア(_T)">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuThirdParty}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
                     <MenuItem Style="{StaticResource MenuContents}" x:Name="menuVersion" Header="バージョン情報(_V)">
                         <MenuItem.Icon>
                             <iconPacks:PackIconMaterial Kind="Information" Foreground="DarkSlateBlue" />
                         </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuVersion}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </MenuItem>
                 </MenuItem>
             </Menu>

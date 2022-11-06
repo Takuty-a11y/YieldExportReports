@@ -7,7 +7,7 @@ namespace YieldExportReports.Commands
 {
     public class WindowLoadedCommand : ICommand
     {
-        MainWindowViewModel _vm;
+        readonly MainWindowViewModel _vm;
         public WindowLoadedCommand(MainWindowViewModel vm)
         {
             _vm = vm;

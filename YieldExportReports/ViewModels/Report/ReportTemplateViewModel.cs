@@ -24,7 +24,7 @@ namespace YieldExportReports.ViewModels.Report
 
         public ReportTemplateViewModel()
         {
-            m_openUrlCommand = new OpenUrlCommand(this);
+            m_openUrlCommand = new OpenUrlCommand();
         }
 
         public ReportTemplateSetting TemplateSetting { get; set; } = new();
@@ -169,7 +169,7 @@ namespace YieldExportReports.ViewModels.Report
         /// テンプレートファイル起動コマンド
         /// </summary>
         public ICommand OpenUrlCommand => m_openUrlCommand;
-        private OpenUrlCommand m_openUrlCommand;
+        private readonly OpenUrlCommand m_openUrlCommand;
 
         /// <summary>
         /// 一時ファイルパス文字列

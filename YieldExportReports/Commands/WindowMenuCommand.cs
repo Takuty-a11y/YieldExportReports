@@ -74,6 +74,12 @@ namespace YieldExportReports.Commands
                     case "ChangeDB":
                         _vm.ChangeDBConnection();
                         break;
+                    case "ThirdParty":
+                        _vm.ShowThirdPartyInfo();
+                        break;
+                    case "Version":
+                        _vm.ShowVersionInfo();
+                        break;
                 }
             }
         }

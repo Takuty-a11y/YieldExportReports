@@ -40,18 +40,18 @@ namespace YieldExportReports.ViewModels.Main
 
         // 変数
         private DBConnect m_targetDBConnect = new();
-        private ShowWindowService<LoginWindow, LoginWindowViewModel>? m_loginWindowService;
+        private readonly ShowWindowService<LoginWindow, LoginWindowViewModel>? m_loginWindowService;
         private CancellationTokenSource? m_takenCancel = null;
 
         // コマンド
         public ICommand LoadedCommand => m_loadedCommand;
-        private WindowLoadedCommand m_loadedCommand;
+        private readonly WindowLoadedCommand m_loadedCommand;
         public ICommand ClosedCommand => m_closedCommand;
-        private WindowClosedCommand m_closedCommand;
+        private readonly WindowClosedCommand m_closedCommand;
         public ICommand MenuCommand => m_menuCommand;
-        private WindowMenuCommand m_menuCommand;
+        private readonly WindowMenuCommand m_menuCommand;
         public ICommand OpenUrlCommand => m_openUrlCommand;
-        private OpenUrlCommand m_openUrlCommand;
+        private readonly OpenUrlCommand m_openUrlCommand;
         public ICommand RenderedCommand
         {
             get
@@ -74,7 +74,7 @@ namespace YieldExportReports.ViewModels.Main
             m_loadedCommand = new WindowLoadedCommand(this);
             m_closedCommand = new WindowClosedCommand(this);
             m_menuCommand = new WindowMenuCommand(this);
-            m_openUrlCommand = new OpenUrlCommand(this);
+            m_openUrlCommand = new OpenUrlCommand();
         }
         public MainWindowViewModel(
             ShowWindowService<LoginWindow, LoginWindowViewModel> loginWindowService) : this()
@@ -246,7 +246,7 @@ namespace YieldExportReports.ViewModels.Main
 
         #endregion
 
-        #region *[プロパティ]ツールメニュー
+        #region *[プロパティ]メニュー
 
         /// <summary>
         /// ツールからデータを取得します
@@ -259,6 +259,30 @@ namespace YieldExportReports.ViewModels.Main
         /// </summary>
         public void ExportReportFromTool()
             => ExecuteExportReport();
+
+        /// <summary>
+        /// サードパーティ情報画面を表示します
+        /// </summary>
+        public void ShowThirdPartyInfo()
+        {
+            var dlg = new ThirdPartyInfo
+            {
+                Owner = m_loginWindowService?.Owner
+            };
+            dlg.ShowDialog();
+        }
+
+        /// <summary>
+        /// バージョン情報画面を表示します
+        /// </summary>
+        public void ShowVersionInfo()
+        {
+            var dlg = new ProductInfo
+            {
+                Owner = m_loginWindowService?.Owner
+            };
+            dlg.ShowDialog();
+        }
 
         #endregion
 
@@ -534,9 +558,10 @@ namespace YieldExportReports.ViewModels.Main
             {
                 // Only SELECT
                 if (string.IsNullOrEmpty(sQuery) ||
-                    sQuery.ToUpper().IndexOf("DELETE") >= 0 ||
-                    sQuery.ToUpper().IndexOf("UPDATE") >= 0 ||
-                    sQuery.ToUpper().IndexOf("INSERT") >= 0) return;
+                    sQuery.ToUpper().Contains("DELETE", StringComparison.CurrentCulture) ||
+                    sQuery.ToUpper().Contains("UPDATE", StringComparison.CurrentCulture) ||
+                    sQuery.ToUpper().Contains("INSERT", StringComparison.CurrentCulture)) 
+                    return;
 
                 using (m_takenCancel = new CancellationTokenSource())
                 {
@@ -700,7 +725,7 @@ namespace YieldExportReports.ViewModels.Main
                     pathList = ope.RunExport(DataGridViewModel.GridDataContext);
 
                     //後処理
-                    var openUrlCommand = new OpenUrlCommand(this);
+                    var openUrlCommand = new OpenUrlCommand();
                     switch (settingValue.GeneralSetting.PostProcess)
                     {
                         case PostProcessType.OpenFile:

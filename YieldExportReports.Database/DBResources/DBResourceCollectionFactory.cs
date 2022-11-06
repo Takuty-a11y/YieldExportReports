@@ -7,6 +7,9 @@ namespace YieldExportReports.Database.DBResources
 {
     public static class DBResourceCollectionFactory
     {
+        private static readonly string AppDirectory = 
+            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? @"C:\";
+
         public static void Serialize(DBResourceCollection dbResourceCollection)
         {
             try
@@ -19,8 +22,7 @@ namespace YieldExportReports.Database.DBResources
                 }
 
                 var xs = new XmlSerializer(typeof(DBResourceCollection));
-                var appPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? @"C:\";
-                using (var writer = new StreamWriter(Path.Combine(appPath, "DBResourceCollection.config")))
+                using (var writer = new StreamWriter(Path.Combine(AppDirectory, "DBResourceCollection.config")))
                 {
                     xs.Serialize(writer, dbResourceCollection);
                 }
@@ -38,8 +40,7 @@ namespace YieldExportReports.Database.DBResources
         }
         private static DBResourceCollection DeserializeConfig()
         {
-            var appPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ?? @"C:\";
-            var filePath = Path.Combine(appPath, "DBResourceCollection.config");
+            var filePath = Path.Combine(AppDirectory, "DBResourceCollection.config");
             if (!File.Exists(filePath))
             {
                 return new DBResourceCollection();
