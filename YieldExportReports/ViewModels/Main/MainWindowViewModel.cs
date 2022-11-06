@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 using YieldExportReports.Commands;
 using YieldExportReports.Database.DBConnects;
 using YieldExportReports.Database.DBLibraries;
@@ -153,7 +152,7 @@ namespace YieldExportReports.ViewModels.Main
             QueryEditorViewModel.GetDataFromQuery = (sQuery) => GetDataFromQuery(sQuery);
             QueryEditorViewModel.GetDataFromQueryCancel = () => GetQueryDataCancel();
             DBTreeViewModel.DBReConnect = () => ChangeDBConnection();
-            DBTreeViewModel.GetLatestDBInfo = () => ExecDBConnection();
+            DBTreeViewModel.GetLatestDBInfo = () => ExecDBConnection(true);
             DBTreeViewModel.SetSelectQuery = (sQuery) => GetQueryDataFromTable(sQuery);
             ReportFieldViewModel.RunExportReport = () => ExecuteExportReport();
             ReportFieldViewModel.AddTopNewSetting = (newItem) => AddTopSetting(newItem);
@@ -247,47 +246,19 @@ namespace YieldExportReports.ViewModels.Main
 
         #endregion
 
-        #region *[プロパティ]ツールメニュー ⇒ 保留中
-        public ICommand ExecQueryFromMenuCommand
-        {
-            get
-            {
-                if (m_execQueryFromMenuCommand == null)
-                {
-                    m_execQueryFromMenuCommand = new RelayCommand(() =>
-                    {
-                        //GetQueryData(QueryEditorViewModel.EditorDocument.Text);
-                    });
-                }
-                return m_execQueryFromMenuCommand;
-            }
-        }
-        private RelayCommand? m_execQueryFromMenuCommand;
+        #region *[プロパティ]ツールメニュー
 
-        public bool QueryMenuEnabled
-        {
-            get { return m_queryMenuEnabled; }
-            set
-            {
-                if (value != m_queryMenuEnabled)
-                {
-                    m_queryMenuEnabled = value;
-                    NotifyPropertyChanged();
-                    NotifyPropertyChanged(nameof(QueryMenuColor));
-                }
-            }
-        }
-        private bool m_queryMenuEnabled = true;
-        public Brush QueryMenuColor
-        {
-            get
-            {
-                if (m_queryMenuEnabled)
-                    return new SolidColorBrush(Colors.Red);
-                else
-                    return new SolidColorBrush(Colors.LightGray);
-            }
-        }
+        /// <summary>
+        /// ツールからデータを取得します
+        /// </summary>
+        public async void GetDataFromTool()
+            => await GetQueryData(QueryEditorViewModel.EditorDocument.Text);
+
+        /// <summary>
+        /// ツールからレポートを出力します
+        /// </summary>
+        public void ExportReportFromTool()
+            => ExecuteExportReport();
 
         #endregion
 
@@ -331,7 +302,7 @@ namespace YieldExportReports.ViewModels.Main
         /// <summary>
         /// [非同期]接続先のDB情報を取得します
         /// </summary>
-        private async void ExecDBConnection()
+        private async void ExecDBConnection(bool isOnlyDB = false)
         {
             var dBObjectCollection = new DBObjectCollection();
 
@@ -378,7 +349,7 @@ namespace YieldExportReports.ViewModels.Main
                     }
                     DBTreeViewModel.DbObjectCollection = dBObjectCollection;
                 });
-                SetSettingValueToDocks();
+                if (!isOnlyDB) SetSettingValueToDocks();
             }
             catch (Exception)
             {
@@ -553,7 +524,6 @@ namespace YieldExportReports.ViewModels.Main
         /// </summary>
         private async Task GetQueryData(string sQuery)
         {
-            QueryMenuEnabled = false;
             QueryEditorViewModel.ExecEnabled = false;
             DataGridViewModel.GridDataContext = null;
             DataGridViewModel.GridVisible = Visibility.Collapsed;
@@ -591,7 +561,6 @@ namespace YieldExportReports.ViewModels.Main
             {
                 SetReportFieldFromGrid();
                 QueryEditorViewModel.ExecEnabled = true;
-                QueryMenuEnabled = true;
                 DataGridViewModel.GridVisible = Visibility.Visible;
                 m_takenCancel = null;
             }

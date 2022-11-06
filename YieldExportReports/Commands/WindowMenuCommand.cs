@@ -35,32 +35,47 @@ namespace YieldExportReports.Commands
                 switch (menuCtrl.Name.Replace("menu", ""))
                 {
                     case "New":
-                        CreateNewProject();
+                        _vm.CreateNewFile();
                         return;
                     case "Open":
-                        OpenProject();
+                        _vm.ChangeDBConnection();
                         return;
                     case "Save":
-                        SaveProject();
+                        _vm.SaveFile();
                         return;
                     case "SaveAs":
-                        SaveProjectAsNew();
+                        _vm.SaveFileAsNew();
                         return;
                     case "Close":
-                        CloseProject();
+                        _vm.CloseFile();
                         return;
                     case "End":
-                        CloseApplication();
+                        Application.Current.Shutdown();
                         return;
+                    case "Query":
+                        _vm.ActiveDocument = _vm.QueryEditorViewModel;
+                        _vm.GetDataFromTool();
+                        return;
+                    case "OutputXML":
+                        _vm.DataGridViewModel.XMLOutCommand.Execute(null);
+                        return;
+                    case "OutputJSON":
+                        _vm.DataGridViewModel.JSONOutCommand.Execute(null);
+                        return;
+                    case "OutputCSV":
+                        _vm.DataGridViewModel.CSVOutCommand.Execute(null);
+                        return;
+                    case "OutputEXCEL":
+                        _vm.DataGridViewModel.ExcelOutCommand.Execute(null);
+                        return;
+                    case "OutputReport":
+                        _vm.ExportReportFromTool();
+                        break;
+                    case "ChangeDB":
+                        _vm.ChangeDBConnection();
+                        break;
                 }
             }
         }
-
-        private void CreateNewProject() => _vm.CreateNewFile();
-        private void OpenProject() => _vm.ChangeDBConnection();
-        private void SaveProject() => _vm.SaveFile();
-        private void SaveProjectAsNew() => _vm.SaveFileAsNew();
-        private void CloseProject() => _vm.CloseFile();
-        private void CloseApplication() => Application.Current.Shutdown();
     }
 }

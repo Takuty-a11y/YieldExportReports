@@ -221,7 +221,7 @@ namespace YieldExportReports.ViewModels.Login
             Action<DBType> errorMessage = (dbType) =>
             {
                 MessageBox.Show(
-                    "データベース名を入力してください。",
+                    "未入力の設定があります。",
                     DBTypes.GetName(dbType),
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
@@ -233,7 +233,7 @@ namespace YieldExportReports.ViewModels.Login
                 var bCheck = string.IsNullOrWhiteSpace(viewmodel.ServerText);
                 bCheck |= string.IsNullOrWhiteSpace(viewmodel.ServerText);
                 bCheck |= string.IsNullOrWhiteSpace(viewmodel.DatabaseText);
-                if (viewmodel.IsIntegrate == true)
+                if (viewmodel.IsIntegrate != true)
                 {
                     bCheck |= string.IsNullOrWhiteSpace(viewmodel.UserText);
                     bCheck |= string.IsNullOrWhiteSpace(viewmodel.PasswordText);
@@ -343,7 +343,7 @@ namespace YieldExportReports.ViewModels.Login
         {
             return
                 MessageBox.Show(
-                    "設定が選択されていません。",
+                    "データベースが選択されていません。",
                     "エラー",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);

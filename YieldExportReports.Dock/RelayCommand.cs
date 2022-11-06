@@ -5,7 +5,7 @@ namespace YieldExportReports.Dock
 {
     public class RelayCommand : ICommand
     {
-        private Action? m_callback;
+        private readonly Action? m_callback;
 
         public RelayCommand(Action? callback)
         {

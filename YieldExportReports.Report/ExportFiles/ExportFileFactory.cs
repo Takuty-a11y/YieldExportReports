@@ -20,8 +20,7 @@ namespace YieldExportReports.Report.ExportFiles
         /// <param name="qcols">ダブルクォートで括りたい列の番号 int[]{1,5,7} </param>
         /// <param name="append">追加書き込みモード  false:上書き true:追加　省略時はfalse</param>
         /// <param name="encode">エンコード文字列：省略時はshift-jis</param>
-        public static void CSV
-            (DataTable dt, int[]? qcols = null, bool append = false, string encode = "shift-jis")
+        public static void CSV(DataTable dt, int[]? qcols = null, bool append = false, string encode = "shift-jis")
         {
             Func<IEnumerable<object?>, int[]?, string?[]> DoubleQuote = (pItem, pQcols) =>
             {
@@ -37,6 +36,7 @@ namespace YieldExportReports.Report.ExportFiles
                 var fileName = GetFileSavePath("csv");
                 if (string.IsNullOrWhiteSpace(fileName)) return;
 
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 using (var sw = new StreamWriter(fileName, append, Encoding.GetEncoding(encode)))
                 {
                     string dquote = (qcols == null) ? "" : "\"";
@@ -60,14 +60,14 @@ namespace YieldExportReports.Report.ExportFiles
         /// <param name="dt">出力対象のDataTable</param>
         /// <param name="append">追加書き込みモード  false:上書き true:追加　省略時はfalse</param>
         /// <param name="encode">エンコード文字列：省略時はshift-jis</param>
-        public static void XML
-            (DataTable dt, bool append = false, string encode = "shift-jis")
+        public static void XML(DataTable dt, bool append = false, string encode = "shift-jis")
         {
             try
             {
                 var fileName = GetFileSavePath("xml");
                 if (string.IsNullOrWhiteSpace(fileName)) return;
 
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 using (var sw = new StreamWriter(fileName, append, Encoding.GetEncoding(encode)))
                 {
                     dt.TableName = "row";
@@ -86,8 +86,7 @@ namespace YieldExportReports.Report.ExportFiles
         /// <param name="dt">出力対象のDataTable</param>
         /// <param name="append">追加書き込みモード  false:上書き true:追加　省略時はfalse</param>
         /// <param name="encode">エンコード文字列：省略時はshift-jis</param>
-        public static void JSON
-            (DataTable dt, bool append = false, string encode = "shift-jis")
+        public static void JSON(DataTable dt, bool append = false, string encode = "shift-jis")
         {
             try
             {
@@ -95,6 +94,7 @@ namespace YieldExportReports.Report.ExportFiles
                 if (string.IsNullOrWhiteSpace(fileName)) return;
 
                 var JSONString = new StringBuilder();
+                Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
                 using (var sw = new StreamWriter(fileName, append, Encoding.GetEncoding(encode)))
                 {
                     JSONString.AppendLine("[");
@@ -137,8 +137,7 @@ namespace YieldExportReports.Report.ExportFiles
         /// <param name="dt">出力対象のDataTable</param>
         /// <param name="append">追加書き込みモード  false:上書き true:追加　省略時はfalse</param>
         /// <param name="encode">エンコード文字列：省略時はshift-jis</param>
-        public static void EXCEL
-            (DataTable dt, bool append = false, string encode = "shift-jis")
+        public static void EXCEL(DataTable dt, bool append = false, string encode = "shift-jis")
         {
             var workBook = new XSSFWorkbook();
             var sheet = workBook.CreateSheet("Result");

@@ -175,6 +175,80 @@
                     </MenuItem.ItemContainerStyle>
                 </MenuItem>
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuTool" Header="ツール(_T)">
+                    <MenuItem Style="{StaticResource MenuContents}" Name="menuQuery" Header="クエリ実行(_Q)">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="DatabaseArrowRight" Foreground="DarkSlateBlue" />
+                        </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuQuery}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <Separator Style="{StaticResource MenuSeparator}" />
+                    <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputFile" Header="ファイル出力">
+                        <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputXML" Header="XML出力(_X)">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconModern Kind="PageXml" Foreground="DarkSlateBlue" />
+                            </MenuItem.Icon>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuOutputXML}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputJSON" Header="JSON出力(_J)">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconMaterial Kind="CodeJson" Foreground="DarkSlateGray" />
+                            </MenuItem.Icon>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuOutputJSON}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputCSV" Header="CSV出力(_C)">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconMaterial Kind="FileDelimitedOutline" Foreground="DarkSlateGray" />
+                            </MenuItem.Icon>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuOutputCSV}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                        <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputEXCEL" Header="Excel出力(_C)">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconMaterial Kind="MicrosoftExcel" Foreground="DarkGreen" />
+                            </MenuItem.Icon>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuOutputEXCEL}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuContents}" Name="menuOutputReport" Header="レポート出力(_R)">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="BookArrowRightOutline" Foreground="DarkSlateGray" />
+                        </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuOutputReport}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <Separator Style="{StaticResource MenuSeparator}" />
+                    <MenuItem Style="{StaticResource MenuContents}" Name="menuChangeDB" Header="データベース接続変更(_D)">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconModern Kind="Connect" Foreground="DarkSlateBlue" />
+                        </MenuItem.Icon>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding MenuCommand}" CommandParameter="{Binding ElementName=menuChangeDB}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
                     <!--
                         <MenuItem Style="{StaticResource MenuContents}" x:Name="menuQuery" Header="クエリを実行" IsEnabled="{Binding QueryMenuEnabled, UpdateSourceTrigger=PropertyChanged}">
                             <MenuItem.Icon>
@@ -189,20 +263,26 @@
                     -->
                 </MenuItem>
                 <MenuItem Style="{StaticResource MainMenuTitle}" x:Name="menuHelp" Header="ヘルプ(_H)">
-                    <MenuItem Style="{StaticResource MenuContents}" Header="製品情報" />
-                    <MenuItem Style="{StaticResource MenuContents}" x:Name="menuGitHub" Header="GitHubを表示">
+                    <MenuItem Style="{StaticResource MenuContents}" Header="製品情報(_I)">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" CommandParameter="https://zenn.dev/takuty/articles/b12f4011871058" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </MenuItem>
+                    <MenuItem Style="{StaticResource MenuContents}" x:Name="menuGitHub" Header="GitHubを表示(_G)">
                         <MenuItem.Icon>
                             <iconPacks:PackIconMaterial Kind="Github" Foreground="DarkSlateGray" />
                         </MenuItem.Icon>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/MahApps/MahApps.Metro.IconPacks" />
+                                <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" CommandParameter="https://github.com/Takuty-a11y/YieldExportReports" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>
                     <Separator Style="{StaticResource MenuSeparator}" />
-                    <MenuItem Style="{StaticResource MenuContents}" Header="サードパーティーソフトウェア" />
-                    <MenuItem Style="{StaticResource MenuContents}" x:Name="menuVersion" Header="バージョン情報">
+                    <MenuItem Style="{StaticResource MenuContents}" Header="サードパーティーソフトウェア(_S)" />
+                    <MenuItem Style="{StaticResource MenuContents}" x:Name="menuVersion" Header="バージョン情報(_V)">
                         <MenuItem.Icon>
                             <iconPacks:PackIconMaterial Kind="Information" Foreground="DarkSlateBlue" />
                         </MenuItem.Icon>

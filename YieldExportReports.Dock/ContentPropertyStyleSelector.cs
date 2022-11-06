@@ -44,7 +44,8 @@ namespace YieldExportReports.Dock
             
             foreach (var prop in props)
             {
-                if (prop.GetCustomAttributes(typeof(Style), true).FirstOrDefault() is ContentPropertyAttribute attr)
+                var objAttr = prop.GetCustomAttributes(typeof(ContentPropertyAttribute), true).FirstOrDefault();
+                if (objAttr is ContentPropertyAttribute attr)
                 {
                     var layoutItem = container as T;
                     var fieldInfo = layoutItem?.GetType().GetField(prop.Name + "Property"

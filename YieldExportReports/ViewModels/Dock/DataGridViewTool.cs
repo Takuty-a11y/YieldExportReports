@@ -15,9 +15,7 @@ namespace YieldExportReports.ViewModels.Dock
     {
         public const string HeaderRowID = "BFBB850F-6993-47DE-9D40-3757CB242747";
 
-        public DataGridViewTool() : base(string.Empty)
-        {
-        }
+        public DataGridViewTool() : base(string.Empty) { }
         public DataGridViewTool(string contentId, string? title = null)
             : base(contentId, title)
         {

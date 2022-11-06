@@ -24,20 +24,27 @@ namespace YieldExportReports.Database.DBOperates.MySQL
                 var c = (MySqlConnection)dbConnection;
                 c.InfoMessage += new MySqlInfoMessageEventHandler(c_InfoMessage);
 
-                var dtTbl = c.GetSchema("Tables");
-                if (dtTbl == null || dtTbl.Rows.Count <= 0)
-                { throw new ArgumentNullException("接続データベースのテーブル"); }
+                var serverName = c.Database;
+                var iemTable = from r in c.GetSchema("Tables").AsEnumerable()
+                               where GetTableValue(r, "TABLE_SCHEMA") == serverName
+                               select r;
 
-                //データベース
+                if (iemTable == null || !iemTable.Any())
+                { throw new ArgumentNullException("接続データベースのテーブル"); }                                  
+
                 var dbObj = new DBObject
                 {
                     Type = DBObjectType.DataBase,
-                    Name = GetTableValue(dtTbl.Rows[0], "TABLE_SCHEMA")
+                    Name = serverName,
                 };
 
                 //テーブル
-                var dtTblRows = dtTbl.Select("TABLE_TYPE='BASE TABLE'", "TABLE_NAME ASC");
-                foreach (DataRow drTbl in dtTblRows)
+                var iemBaseTable = from r in iemTable
+                                   orderby GetTableValue(r, "TABLE_NAME") ascending
+                                   where GetTableValue(r, "TABLE_TYPE") == "BASE TABLE"
+                                   select r;
+
+                foreach (var drTbl in iemBaseTable)
                 {
                     var dbObjTbl = new DBObject
                     {
@@ -47,10 +54,11 @@ namespace YieldExportReports.Database.DBOperates.MySQL
                     dbObjTbl.Children = GetTableKeys(dbObj.Name, dbObjTbl.Name, c);
 
                     //列
-                    var dtCol =
-                        c.GetSchema("Columns", new string[3] { string.Empty, string.Empty, dbObjTbl.Name });
+                    var dtColRows = from r in c.GetSchema("Columns").AsEnumerable()
+                                    orderby r["ORDINAL_POSITION"] ascending
+                                    where GetTableValue(r, "TABLE_NAME") == dbObjTbl.Name
+                                    select r;
 
-                    var dtColRows = dtCol.Select(null, "ORDINAL_POSITION ASC");
                     foreach (DataRow drCol in dtColRows)
                     {
                         var dbObjCol = new DBObject();
@@ -165,7 +173,7 @@ namespace YieldExportReports.Database.DBOperates.MySQL
             (string queryText, string dbConnectionString, CancellationToken token)
         {
             MySqlCommand dataCommand;
-            List<DataTable> dataTableCollection = new List<DataTable>();
+            var dataTableCollection = new List<DataTable>();
             using (var c = new MySqlConnection(dbConnectionString))
             {
                 try

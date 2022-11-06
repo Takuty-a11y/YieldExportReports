@@ -55,7 +55,7 @@ namespace YieldExportReports.ViewModels.Base
                 return m_okCommand;
             }
         }
-        private RelayCommand m_okCommand = new(null);
+        private RelayCommand? m_okCommand;
         protected virtual bool OKCommandMethod() => true;
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace YieldExportReports.ViewModels.Base
                 return m_cancelCommand;
             }
         }
-        private RelayCommand m_cancelCommand = new(null);
+        private RelayCommand? m_cancelCommand;
         protected virtual bool CancelCommandMethod() => true;
     }
 }

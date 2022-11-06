@@ -10,9 +10,7 @@ namespace YieldExportReports.ViewModels.Dock
 {
     public sealed class DBTreeViewTool : ToolContent
     {
-        public DBTreeViewTool() : base(string.Empty)
-        {
-        }
+        public DBTreeViewTool() : base(string.Empty) { }
         public DBTreeViewTool(string contentId, string? title = null)
             : base(contentId, title)
         {

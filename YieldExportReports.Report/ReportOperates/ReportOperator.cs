@@ -397,18 +397,23 @@ namespace YieldExportReports.Report.ReportOperates
                              };
             foreach (var setting in iemSetting)
             {
+                var sourceValue = string.Empty;
                 try
                 {
-                    var sourceValue =
+                    sourceValue =
                         DataSourceUtilities.DataTypeString(setting.dataType, row[setting.fieldName]);
+                }
+                catch
+                { throw new ValueIncorrectException("出力設定値", new string[] { $"フィールド：{setting.fieldName}" }); }
+
+                try
+                {
                     var cellAddress = new CellReference(setting.cell);
                     ExcelUtilities.WriteCell
                         (sheet, cellAddress.Col, cellAddress.Row + repeatIndex, sourceValue.ToString());
                 }
-                catch
-                {
-                    throw new Exception("データの出力に失敗しました。");
-                }
+                catch(Exception ex)
+                { throw new ActionFailureException("データからセルへの出力", ex.Message); }
             }
         }
 

@@ -139,7 +139,7 @@
             IsReadOnly="True"
             HeadersVisibility="All"
             GridLinesVisibility="All"
-            Visibility="{Binding GridVisible, UpdateSourceTrigger=PropertyChanged}"
+            Visibility="{Binding GridVisible, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DataContext="{Binding GridDataContext, UpdateSourceTrigger=PropertyChanged}"
             ItemsSource="{Binding}">
             <DataGrid.ColumnHeaderStyle>

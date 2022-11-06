@@ -16,7 +16,7 @@
                 <Button
                     Padding="4,2"
                     Name="btnConnect"
-                    ToolTip="DB接続変更">
+                    ToolTip="データベース接続変更">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconModern Kind="Connect" Foreground="DarkSlateBlue" Width="14" />
                     </StackPanel>

@@ -291,7 +291,8 @@ namespace YieldExportReports.Report.ReportLibraries
         {
             if (string.IsNullOrEmpty(name)) { return name; }
 
-            var encoding = Encoding.GetEncoding(932);
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            var encoding = Encoding.GetEncoding("shift-jis");
             if (encoding.GetByteCount(name) <= maximum) { return name; }
 
             var bytes = encoding.GetBytes(name);

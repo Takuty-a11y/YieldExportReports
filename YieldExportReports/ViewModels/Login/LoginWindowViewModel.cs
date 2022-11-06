@@ -10,7 +10,7 @@ namespace YieldExportReports.ViewModels.Login
 {
     public class LoginWindowViewModel : DialogViewModel
     {
-        private ShowWindowService<DBSettingWindow, DBSettingWindowViewModel> m_settingWindowService;
+        private readonly ShowWindowService<DBSettingWindow, DBSettingWindowViewModel> m_settingWindowService;
 
         public LoginWindowViewModel()
         {
