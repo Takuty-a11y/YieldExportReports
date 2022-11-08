@@ -19,8 +19,12 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-
-        <StackPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}" />
+        <DockPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Image Source="/Licenses/YieldExportReports.png" />
+                <Label Content="YieldExportReports" FontWeight="Bold" FontSize="23" Foreground="White" />
+            </StackPanel>
+        </DockPanel>
         <DockPanel Grid.Row="1">
             <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource SettingButton}" ToolTip="設定を追加する">
@@ -75,8 +79,22 @@
                 </i:Interaction.Triggers>
             </ListView>
         </DockPanel>
-        <Border Grid.Row="2" Background="WhiteSmoke">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <Grid Grid.Row="2" Background="WhiteSmoke">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Button Style="{StaticResource OKCnacelButton}" Content="製品情報" Margin="15,0,0,0">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding Path=LinkCommand}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Style="{StaticResource LoginButton}" Content="接続" IsEnabled="{Binding OKEnabled}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
@@ -98,6 +116,6 @@
                     </i:Interaction.Triggers>
                 </Button>
             </StackPanel>
-        </Border>
+        </Grid>
     </Grid>
 </Window>

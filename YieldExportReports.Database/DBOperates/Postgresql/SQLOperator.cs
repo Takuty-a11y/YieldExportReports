@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,7 +53,7 @@ namespace YieldExportReports.Database.DBOperates.PostgreSQL
 
                     //列
                     var dtCol =
-                        c.GetSchema("Columns", new string[3] { string.Empty, string.Empty, dbObjTbl.Name });
+                        c.GetSchema("Columns", new string[3] { null, null, dbObjTbl.Name });
 
                     var dtColRows = dtCol.Select(null, "ORDINAL_POSITION ASC");
                     foreach (DataRow drCol in dtColRows)
@@ -91,6 +92,13 @@ namespace YieldExportReports.Database.DBOperates.PostgreSQL
             }
         }
 
+        /// <summary>
+        /// テーブルの主キーと外部キー情報を取得します
+        /// </summary>
+        /// <param name="svrName"></param>
+        /// <param name="tblName"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private List<DBObject> GetTableKeys(string svrName, string tblName, NpgsqlConnection c)
         {
             var lstDbObject = new List<DBObject>();
@@ -196,9 +204,15 @@ namespace YieldExportReports.Database.DBOperates.PostgreSQL
                                 {
                                     token.ThrowIfCancellationRequested();
                                 }
-                                var colType = reader.GetFieldType(i);
                                 var colName = reader.GetName(i);
-                                dtRet.Columns.Add(colName, colType);
+                                if (dtRet.Columns.Contains(colName))
+                                {
+                                    var sbMessage = new StringBuilder();
+                                    sbMessage.AppendLine($"列名が重複しています[{colName}]");
+                                    sbMessage.AppendLine($"クエリで列名を明示的に指定する必要があります");
+                                    throw new Exception(sbMessage.ToString());
+                                }
+                                dtRet.Columns.Add(colName, reader.GetFieldType(i));
                             }
 
                         }, token);

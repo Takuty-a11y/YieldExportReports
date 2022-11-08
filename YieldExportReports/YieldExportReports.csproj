@@ -5,11 +5,22 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>YieldExportReports.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Views\Login\Y.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="YieldExportReports.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.1.3.50" />
-    <PackageReference Include="Dirkster.AvalonDock" Version="4.70.3" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.70.3">
+      <ExcludeAssets></ExcludeAssets>
+    </PackageReference>
     <PackageReference Include="Dirkster.AvalonDock.Themes.VS2013" Version="4.70.3" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.11.0" />
@@ -23,6 +34,12 @@
     <ProjectReference Include="..\YieldExportReports.Database\YieldExportReports.Database.csproj" />
     <ProjectReference Include="..\YieldExportReports.Dock\YieldExportReports.Dock.csproj" />
     <ProjectReference Include="..\YieldExportReports.Report\YieldExportReports.Report.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Licenses\YieldExportReports.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

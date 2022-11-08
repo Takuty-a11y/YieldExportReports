@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -54,7 +55,7 @@ namespace YieldExportReports.Database.DBOperates.MSSQLServer
                     //列
                     var dtCol = c.GetSchema(
                             SqlClientMetaDataCollectionNames.Columns,
-                            new string[3] { string.Empty, string.Empty, dbObjTbl.Name });
+                            new string[3] { null, null, dbObjTbl.Name });
 
                     var dtColRows = dtCol.Select(null, "ORDINAL_POSITION ASC");
                     foreach (DataRow drCol in dtColRows)
@@ -203,7 +204,15 @@ namespace YieldExportReports.Database.DBOperates.MSSQLServer
                                 {
                                     token.ThrowIfCancellationRequested();
                                 }
-                                dtRet.Columns.Add(reader.GetName(i), reader.GetFieldType(i));
+                                var colName = reader.GetName(i);
+                                if (dtRet.Columns.Contains(colName))
+                                {
+                                    var sbMessage = new StringBuilder();
+                                    sbMessage.AppendLine($"列名が重複しています[{colName}]");
+                                    sbMessage.AppendLine($"クエリで列名を明示的に指定する必要があります");
+                                    throw new Exception(sbMessage.ToString());
+                                }
+                                dtRet.Columns.Add(colName, reader.GetFieldType(i));
                             }
 
                         }, token);

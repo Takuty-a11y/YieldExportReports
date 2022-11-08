@@ -19,8 +19,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <iconPacks:PackIconMaterial Kind="File" Foreground="DarkSlateBlue" Height="60" Width="60" />
-            <Label Content="YieldExportReports" FontWeight="Bold" FontSize="40" />
+            <Image Source="/Licenses/YieldExportReports.png" />
+            <Label Content="YieldExportReports" FontWeight="Bold" FontSize="45" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Center">

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,11 @@ namespace YieldExportReports.Database.DBOperates.MySQL
     {
         public SQLOperator() { }
 
+        /// <summary>
+        /// 接続したDBのオブジェクトを取得
+        /// </summary>
+        /// <param name="dbConnection">接続DBオブジェクト</param>
+        /// <returns>DBObjectCollection</returns>
         public DBObjectCollection GetDBObjectsToList(IDbConnection dbConnection)
         {
             var dbObjectCollection = new DBObjectCollection();
@@ -26,7 +32,7 @@ namespace YieldExportReports.Database.DBOperates.MySQL
 
                 var serverName = c.Database;
                 var iemTable = from r in c.GetSchema("Tables").AsEnumerable()
-                               where GetTableValue(r, "TABLE_SCHEMA") == serverName
+                               where GetTableValue(r, "TABLE_SCHEMA").Equals(serverName, StringComparison.OrdinalIgnoreCase)
                                select r;
 
                 if (iemTable == null || !iemTable.Any())
@@ -41,7 +47,7 @@ namespace YieldExportReports.Database.DBOperates.MySQL
                 //テーブル
                 var iemBaseTable = from r in iemTable
                                    orderby GetTableValue(r, "TABLE_NAME") ascending
-                                   where GetTableValue(r, "TABLE_TYPE") == "BASE TABLE"
+                                   where GetTableValue(r, "TABLE_TYPE").Equals("BASE TABLE", StringComparison.OrdinalIgnoreCase)
                                    select r;
 
                 foreach (var drTbl in iemBaseTable)
@@ -56,7 +62,8 @@ namespace YieldExportReports.Database.DBOperates.MySQL
                     //列
                     var dtColRows = from r in c.GetSchema("Columns").AsEnumerable()
                                     orderby r["ORDINAL_POSITION"] ascending
-                                    where GetTableValue(r, "TABLE_NAME") == dbObjTbl.Name
+                                    where GetTableValue(r, "TABLE_SCHEMA").Equals(serverName, StringComparison.OrdinalIgnoreCase)
+                                        && GetTableValue(r, "TABLE_NAME").Equals(dbObjTbl.Name, StringComparison.OrdinalIgnoreCase)
                                     select r;
 
                     foreach (DataRow drCol in dtColRows)
@@ -95,6 +102,13 @@ namespace YieldExportReports.Database.DBOperates.MySQL
             }
         }
 
+        /// <summary>
+        /// テーブルの主キーと外部キー情報を取得します
+        /// </summary>
+        /// <param name="svrName"></param>
+        /// <param name="tblName"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
         private List<DBObject> GetTableKeys(string svrName, string tblName, MySqlConnection c)
         {
             var lstDbObject = new List<DBObject>();
@@ -197,9 +211,15 @@ namespace YieldExportReports.Database.DBOperates.MySQL
                                 {
                                     token.ThrowIfCancellationRequested();
                                 }
-                                var colType = reader.GetFieldType(i);
                                 var colName = reader.GetName(i);
-                                dtRet.Columns.Add(colName, colType);
+                                if (dtRet.Columns.Contains(colName))
+                                {
+                                    var sbMessage = new StringBuilder();
+                                    sbMessage.AppendLine($"列名が重複しています[{colName}]");
+                                    sbMessage.AppendLine($"クエリで列名を明示的に指定する必要があります");
+                                    throw new Exception(sbMessage.ToString());
+                                }
+                                dtRet.Columns.Add(colName, reader.GetFieldType(i));
                             }
 
                         }, token);

@@ -146,6 +146,7 @@
                 <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
                     <Setter Property="Background" Value="WhiteSmoke" />
                     <Setter Property="mah:ControlsHelper.ContentCharacterCasing" Value="Normal" />
+                    <Setter Property="mah:ControlsHelper.RecognizesAccessKey" Value="False" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
             <DataGrid.RowHeaderStyle>

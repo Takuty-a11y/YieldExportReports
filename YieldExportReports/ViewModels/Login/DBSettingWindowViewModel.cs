@@ -6,6 +6,7 @@ using System.Windows.Input;
 using YieldExportReports.Database.DBLibraries;
 using YieldExportReports.Database.DBResources;
 using YieldExportReports.Dock;
+using YieldExportReports.Utils;
 using YieldExportReports.ViewModels.Base;
 
 namespace YieldExportReports.ViewModels.Login
@@ -231,7 +232,6 @@ namespace YieldExportReports.ViewModels.Login
             {
                 if (viewmodel == null) return true;
                 var bCheck = string.IsNullOrWhiteSpace(viewmodel.ServerText);
-                bCheck |= string.IsNullOrWhiteSpace(viewmodel.ServerText);
                 bCheck |= string.IsNullOrWhiteSpace(viewmodel.DatabaseText);
                 if (viewmodel.IsIntegrate != true)
                 {

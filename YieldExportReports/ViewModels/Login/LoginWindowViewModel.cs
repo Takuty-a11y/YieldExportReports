@@ -137,6 +137,25 @@ namespace YieldExportReports.ViewModels.Login
         private RelayCommand? m_deleteCommand;
 
         /// <summary>
+        /// 製品情報コマンド
+        /// </summary>
+        public ICommand LinkCommand
+        {
+            get
+            {
+                if (m_linkCommand == null)
+                {
+                    m_linkCommand = new RelayCommand(() =>
+                    {
+                        AppHelper.OpenLinkProcess("https://zenn.dev/takuty/articles/b12f4011871058");
+                    });
+                }
+                return m_linkCommand;
+            }
+        }
+        private RelayCommand? m_linkCommand;
+
+        /// <summary>
         /// OKボタン有効無効
         /// </summary>
         public bool OKEnabled

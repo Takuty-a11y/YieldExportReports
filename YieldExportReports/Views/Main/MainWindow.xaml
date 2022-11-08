@@ -67,7 +67,7 @@
             <i:InvokeCommandAction Command="{Binding ClosedCommand}" CommandParameter="{Binding ElementName=uxDockingManager}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />

@@ -302,7 +302,7 @@ namespace YieldExportReports.ViewModels.Main
                 {
                     if (MessageBox.Show(
                             "アプリケーションを終了しますか？"
-                            , "MySQLClient"
+                            , nameof(YieldExportReports)
                             , MessageBoxButton.OKCancel
                             , MessageBoxImage.Question)
                         == MessageBoxResult.OK)

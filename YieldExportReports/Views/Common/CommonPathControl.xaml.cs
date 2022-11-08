@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using YieldExportReports.Dock;
 
 namespace YieldExportReports.Views.Common
 {
@@ -12,6 +13,11 @@ namespace YieldExportReports.Views.Common
         public CommonPathControl()
         {
             InitializeComponent();
+
+            DeleteFileCommand = new RelayCommand(() =>
+            {
+                PathText = string.Empty;
+            });
         }
 
         public string PathText

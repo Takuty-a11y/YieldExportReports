@@ -37,7 +37,12 @@
             <RowDefinition />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}"/>
+        <DockPanel Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Accent}">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <Image Source="/Licenses/YieldExportReports.png" />
+                <Label Content="YieldExportReports" FontWeight="Bold" FontSize="23" Foreground="White" />
+            </StackPanel>
+        </DockPanel>
         <Border Grid.Row="1">
             <DockPanel>
                 <Border DockPanel.Dock="Top" Background="WhiteSmoke">
