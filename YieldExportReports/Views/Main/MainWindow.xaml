@@ -259,7 +259,7 @@
                     <MenuItem Style="{StaticResource MenuContents}" Header="製品情報(_I)">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" CommandParameter="https://zenn.dev/takuty/articles/b12f4011871058" />
+                                <i:InvokeCommandAction Command="{Binding OpenUrlCommand}" CommandParameter="https://zenn.dev/takuty/articles/598b38c2c27434" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </MenuItem>

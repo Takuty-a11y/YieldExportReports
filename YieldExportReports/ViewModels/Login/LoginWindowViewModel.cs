@@ -147,7 +147,7 @@ namespace YieldExportReports.ViewModels.Login
                 {
                     m_linkCommand = new RelayCommand(() =>
                     {
-                        AppHelper.OpenLinkProcess("https://zenn.dev/takuty/articles/b12f4011871058");
+                        AppHelper.OpenLinkProcess("https://zenn.dev/takuty/articles/598b38c2c27434");
                     });
                 }
                 return m_linkCommand;
