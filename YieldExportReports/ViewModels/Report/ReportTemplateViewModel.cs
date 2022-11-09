@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -40,6 +41,7 @@ namespace YieldExportReports.ViewModels.Report
                 if (value != TemplateSetting.TemplatePath)
                 {
                     TemplateSetting.TemplatePath = @value;
+                    GetSheets();
                     NotifyPropertyChanged();
                 }
             }
@@ -67,7 +69,6 @@ namespace YieldExportReports.ViewModels.Report
                         if (ofd.ShowDialog() == CommonFileDialogResult.Ok)
                         {
                             FilePathText = ofd.FileName;
-                            GetSheets();
                         }
                     });
                 }
@@ -147,13 +148,13 @@ namespace YieldExportReports.ViewModels.Report
         /// </summary>
         internal void GetSheets()
         {
-            if (string.IsNullOrWhiteSpace(FilePathText))
-            { return; }
-
             try
             {
-                SheetItemSource =
-                    ExportReportFactory.GetTemplateSheets(FilePathText);
+                var retData = new Dictionary<int, string>();
+                if (File.Exists(FilePathText))
+                { retData = ExportReportFactory.GetTemplateSheets(FilePathText); }
+
+                SheetItemSource = retData;
             }
             catch (Exception ex)
             {

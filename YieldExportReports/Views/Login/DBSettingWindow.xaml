@@ -63,7 +63,7 @@
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Label Content="設定ファイル" Margin="0,0,10,0" />
                         <common:CommonPathControl
-                            PathText="{Binding FilePathText}"
+                            PathText="{Binding FilePathText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             TextWidth="310"
                             OpenFileCommand="{Binding OpenFileCommand}"/>
                     </StackPanel>
